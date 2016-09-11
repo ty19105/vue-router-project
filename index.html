@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+        #app {
+          color: #2c3e50;
+          max-width: 600px;
+          font-family: Source Sans Pro, Helvetica, sans-serif;
+          text-align: center;
+        }
+
+        #app a {
+            padding: 5px 10px;
+          color: #42b983;
+          text-decoration: none;
+        }
+        .active{
+            background: red;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <p>
+                <a v-link="{ path: '/home', activeClass: 'active' }" >首页</a>
+                <a v-link="{ path: '/home/plane', activeClass: 'active' }">计划</a>
+                <a v-link="{ path: '/home/detials', activeClass: 'active'  }">详情</a>
+            </p>
+            <router-view></router-view>
+        </div>
+
+    </body>
+</html>
