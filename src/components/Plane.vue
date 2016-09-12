@@ -76,8 +76,8 @@
                     year = now.getFullYear(),
                     month = now.getMonth() + 1,
                     day = now.getDate(),
-                    hh = now.getHours(),
-                    mm = now.getMinutes();          //分
+                    h = now.getHours(),
+                    m = now.getMinutes();
 
                 var clock = year + "-";
 
@@ -90,14 +90,14 @@
 
                 clock += day + " ";
 
-                if(hh < 10)
+                if(h < 10)
                     clock += "0";
 
-                clock += hh + ":";
-                if (mm < 10)
+                clock += h + ":";
+                if (m < 10)
                     clock += '0';
 
-                clock += mm;
+                clock += m;
                 return(clock);
             }
         }
@@ -171,9 +171,5 @@
     }
     #plane .finshedColor {
         color: #C93B2A;
-    }
-    .logo {
-      width: 100px;
-      height: 100px
     }
 </style>
