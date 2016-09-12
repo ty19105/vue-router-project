@@ -1,4 +1,6 @@
 
+
+#利用vue + vue-router,采用localStorage存储写的一个小东西
 # vue-route-project
 
  A Vue.js project
