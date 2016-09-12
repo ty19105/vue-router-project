@@ -1,7 +1,7 @@
 <template lang="html">
     <nav>
-        <a v-link="{ path: '/', activeClass: 'active' }" >首页</a>
-        <a v-link="{ path: '/plane', activeClass: 'active' }">计划</a>
+        <a v-link="{ path: '/home', activeClass: 'active' }" >首页</a>
+        <a v-link="{ path: '/plan', activeClass: 'active' }">计划</a>
         <a v-link="{ path: '/detials', activeClass: 'active'  }">详情</a>
     </nav>
     <router-view></router-view>

@@ -13,10 +13,10 @@
             </span>
         </p>
         <p>
-            <span class="plane-status" v-if="item.isFinished == false">
+            <span class="plan-status" v-if="item.isFinished == false">
                 状态：未完成
             </span>
-            <span class="plane-status finshedColor" v-else>
+            <span class="plan-status finshedColor" v-else>
                 状态：已完成
             </span>
         </p>
@@ -39,7 +39,7 @@ export default {
     },
     computed: {},
     ready() {
-        var id = this.$route.params.planeId;
+        var id = this.$route.params.planId;
 
         this.item = {
             id: id,
@@ -51,11 +51,11 @@ export default {
     attached() {},
     methods: {
         save: function() {
-            var id = this.$route.params.planeId;
+            var id = this.$route.params.planId;
             this.items[id] = this.item;
             Store.save(this.items);
             alert("保存成功");
-            router.go('/plane');
+            router.go('/plan');
         }
     },
     components: {}

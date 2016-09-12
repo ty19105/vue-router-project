@@ -1,12 +1,12 @@
 <template>
-  <div id="plane">
+  <div id="plan">
       <h1 v-text="title"></h1>
-      <input type="text" v-model="newItem" v-on:keyup.enter="addNew" placeholder="add project" id="add-plane">
+      <input type="text" v-model="newItem" v-on:keyup.enter="addNew" placeholder="add project" id="add-plan">
       <li>
           <span class="create-time">时间</span>
-          <span class="plane-name">计划名称</span>
-          <span class="plane-status">状态</span>
-          <span class="plane-opr">操作</span>
+          <span class="plan-name">计划名称</span>
+          <span class="plan-status">状态</span>
+          <span class="plan-opr">操作</span>
 
       </li>
       <ul>
@@ -14,17 +14,17 @@
               <span class="create-time">{{ item.createTime }}</span>
               <a v-bind:class="{finshed:item.isFinished}"
                     v-on:click="toggleFinshed(item)"
-                    class="plane-name">
+                    class="plan-name">
                         {{ item.label }}
                 </a>
-              <span class="plane-status" v-if="item.isFinished == false">
+              <span class="plan-status" v-if="item.isFinished == false">
                   未完成
               </span>
-              <span class="plane-status finshedColor" v-else>
+              <span class="plan-status finshedColor" v-else>
                   已完成
               </span>
-              <a class="edit-plane btn" v-link="{ path: '/plane/edit', name: 'edit', params: { planeId: item.id }}">编辑</a>
-              <a class="del-plane btn" v-on:click="delPlane(item)">删除</a>
+              <a class="edit-plan btn" v-link="{ path: '/plan/edit', name: 'edit', params: { planId: item.id }}">编辑</a>
+              <a class="del-plan btn" v-on:click="delplan(item)">删除</a>
           </li>
       </ul>
   </div>
@@ -36,7 +36,7 @@
     export default {
       data: function() {
           return {
-                title: 'This is a plane',
+                title: 'This is a plan',
                 items: Store.fetch(),
                 newItem: ''
             }
@@ -66,7 +66,7 @@
                   this.newItem = '';
                 }
             },
-            delPlane: function(item) {
+            delplan: function(item) {
               console.log(item);
               this.items.$remove(item);
 
@@ -109,22 +109,22 @@
         padding: 0;
         margin: 0;
     }
-    #plane {
+    #plan {
         width: 100%;
         color: #2c3e50;
         font-family: Source Sans Pro, Helvetica, sans-serif;
         text-align: center;
     }
-    #plane li {
+    #plan li {
         list-style: none;
         background: rgba(226, 226, 226, .2);
         padding: 10px 0;
         border-bottom: 1px solid #F4F7FA;
     }
-    #plane a {
+    #plan a {
       text-decoration: none;
     }
-    #add-plane {
+    #add-plan {
         margin: 20px auto;
         width: 30%;
         height: 30px;
@@ -137,12 +137,12 @@
         width: 20%;
         float: left;
     }
-    .plane-name {
+    .plan-name {
         width: 20%;
         float: left;
         color: #42b983;
     }
-    .plane-status {
+    .plan-status {
         width: 20%;
         float: left;
     }
@@ -155,21 +155,21 @@
         line-height: 30px;
         box-sizing: border-box;
     }
-    .edit-plane {
+    .edit-plan {
         background: #009CD5;
         border: none;
         color: #fff;
     }
-    .del-plane {
+    .del-plan {
         color: #fff;
         margin-left: 5px;
         background: #C93B2A;
     }
-    #plane .finshed {
+    #plan .finshed {
         text-decoration: line-through;
         color: #C93B2A;
     }
-    #plane .finshedColor {
+    #plan .finshedColor {
         color: #C93B2A;
     }
 </style>
