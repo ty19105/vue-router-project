@@ -11,14 +11,19 @@
       </li>
       <ul>
           <li v-for="item in items">
-              <span class="create-time">2016-9-12 12:00</span>
+              <span class="create-time">{{ item.createTime }}</span>
               <a v-bind:class="{finshed:item.isFinished}"
                     v-on:click="toggleFinshed(item)"
                     class="plane-name">
                         {{ item.label }}
                 </a>
-              <span class="plane-status">未完成</span>
-              <a class="edit-plane btn" v-link="{ name: 'plane', params: { planeId: item.label }}">编辑</a>
+              <span class="plane-status" v-if="item.isFinished == false">
+                  未完成
+              </span>
+              <span class="plane-status finshedColor" v-else>
+                  已完成
+              </span>
+              <a class="edit-plane btn" v-link="{ path: '/plane/edit', name: 'edit', params: { planeId: item.id }}">编辑</a>
               <a class="del-plane btn" v-on:click="delPlane(item)">删除</a>
           </li>
       </ul>
@@ -31,40 +36,71 @@
     export default {
       data: function() {
           return {
-              title: 'This is a plane',
-              items: Store.fetch(),
-                  newItem: ''
-              }
-          },
-          watch: {
-              //当items变化时候，执行
-              items: {
-                  handler: function(items) {
-                      Store.save(items);
-                  },
-                  deep: true
-              }
-          },
-          methods: {
-              toggleFinshed: function(item) {
-
-                   item.isFinished = !item.isFinished;
+                title: 'This is a plane',
+                items: Store.fetch(),
+                newItem: ''
+            }
+        },
+        watch: {
+          //当items变化时候，执行
+          items: {
+              handler: function(items) {
+                  Store.save(items);
               },
-              addNew: function() {
-                  if(this.newItem) {
-                      this.items.push({
-                          label: this.newItem,
-                          isFinished: false
-                      });
-                      this.newItem = '';
-                  }
-              },
-              delPlane: function(item) {
-                  console.log(item);
-                  this.items.$remove(item);
-
-              }
+              deep: true
           }
+        },
+        methods: {
+            toggleFinshed: function(item) {
+
+               item.isFinished = !item.isFinished;
+            },
+            addNew: function() {
+                if(this.newItem) {
+                  this.items.push({
+                      id: this.items.length,
+                      createTime: this.getTime(),
+                      label: this.newItem,
+                      isFinished: false
+                  });
+                  this.newItem = '';
+                }
+            },
+            delPlane: function(item) {
+              console.log(item);
+              this.items.$remove(item);
+
+            },
+            getTime: function() {
+                var now = new Date(),
+                    year = now.getFullYear(),
+                    month = now.getMonth() + 1,
+                    day = now.getDate(),
+                    hh = now.getHours(),
+                    mm = now.getMinutes();          //分
+
+                var clock = year + "-";
+
+                if(month < 10)
+                    clock += "0";
+                clock += month + "-";
+
+                if(day < 10)
+                    clock += "0";
+
+                clock += day + " ";
+
+                if(hh < 10)
+                    clock += "0";
+
+                clock += hh + ":";
+                if (mm < 10)
+                    clock += '0';
+
+                clock += mm;
+                return(clock);
+            }
+        }
     }
 </script>
 <style>
@@ -113,6 +149,7 @@
     .btn {
         display: inline-block;
         width: 45%;
+        text-align: center;
         max-width: 80px;
         height: 30px;
         line-height: 30px;
@@ -130,6 +167,10 @@
     }
     #plane .finshed {
         text-decoration: line-through;
+        color: #C93B2A;
+    }
+    #plane .finshedColor {
+        color: #C93B2A;
     }
     .logo {
       width: 100px;
