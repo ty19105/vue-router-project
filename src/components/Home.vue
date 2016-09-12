@@ -1,5 +1,7 @@
 <template>
     <div id="home">
-        <router-view></router-view>
+        <p>
+            1111
+        </p>
     </div>
 </template>

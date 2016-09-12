@@ -1,44 +1,41 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
+<template lang="html">
+    <nav>
+        <a v-link="{ path: '/home', activeClass: 'active' }" >首页</a>
+        <a v-link="{ path: '/plane', activeClass: 'active' }">计划</a>
+        <a v-link="{ path: '/detials', activeClass: 'active'  }">详情</a>
+    </nav>
+    <router-view></router-view>
+</template>
 
+<script>
+export default {
+  data() {
+    return {
+    };
+  },
+  computed: {},
+  ready() {},
+  attached() {},
+  methods: {},
+  components: {}
+};
+</script>
 
-// define some components
-var Home = Vue.extend({
-  template:
-    '<div class="home">' +
-      '<h2>这是首页组件</h2>' +
-      '<router-view></router-view>' + // <- nested outlet
-    '</div>'
-})
-
-var Plane = Vue.extend({
-    template: '<p>计划</p>'
-})
-
-var Detials = Vue.extend({
-    template: '<p>计划详情</p>'
-})
-
-// configure router
-var router = new VueRouter();
-
-router.map({
-  '/home': {
-    component: Home,
-    // add a subRoutes map under /home
-    subRoutes: {
-      '/': {
-        component: {
-          template: '<p>Default sub view for Home</p>'
-        }
-      },
-      '/plane': {
-        component: Plane
-      },
-      '/detials': {
-        component: Detials
-      }
-    }
-  }
-})
+<style lang="css">
+nav {
+    margin: 50px auto;
+    width: 100%;
+    text-align: center;
+}
+nav a {
+    color: #2c3e50;
+    padding: 5px 20px;
+}
+.active{
+    background: #009CD5;
+    color: #fff;
+}
+a {
+    text-decoration: none;
+}
+</style>
