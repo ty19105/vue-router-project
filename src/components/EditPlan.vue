@@ -9,7 +9,7 @@
         <p>
             计划名称：
             <span>
-                <input type="text" value="{{item.label || ''}}" v-model="item.label">
+                <input type="text" value="{{item.text || ''}}" v-model="item.text">
             </span>
         </p>
         <p>
@@ -27,38 +27,38 @@
 <script>
 import Store from './store.js';
 import router from '../router.js'
+
 export default {
     data() {
-        var id = this.$route.params;
-        console.log(id);
         return {
             items: Store.fetch(),
             newItem: '',
             item: {}
         }
     },
-    computed: {},
     ready() {
-        var id = this.$route.params.planId;
+        const id = this.getId();
 
         this.item = {
             id: id,
             createTime: this.items[id].createTime,
-            label: this.items[id].label,
+            text: this.items[id].text,
             isFinished: this.items[id].isFinished
         };
     },
-    attached() {},
     methods: {
         save: function() {
-            var id = this.$route.params.planId;
+            const id = this.getId();
             this.items[id] = this.item;
             Store.save(this.items);
             alert("保存成功");
             router.go('/plan');
+        },
+        getId() {
+            const id = this.$route.params.planId;
+            return id;
         }
-    },
-    components: {}
+    }
 };
 </script>
 <style lang="css">

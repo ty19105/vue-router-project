@@ -2,6 +2,8 @@
   <div id="plan">
       <h1 v-text="title"></h1>
       <input type="text" v-model="newItem" v-on:keyup.enter="addNew" placeholder="add project" id="add-plan">
+      <button type="button" name="button" class="btn" @click="addNew">添加</button>
+      <button type="button" name="button" class="btn" @click="getData">接口添加</button>
       <li>
           <span class="create-time">时间</span>
           <span class="plan-name">计划名称</span>
@@ -15,7 +17,7 @@
               <a v-bind:class="{finshed:item.isFinished}"
                     v-on:click="toggleFinshed(item)"
                     class="plan-name">
-                        {{ item.label }}
+                        {{ item.text }}
                 </a>
               <span class="plan-status" v-if="item.isFinished == false">
                   未完成
@@ -32,13 +34,13 @@
 
 <script>
     import Store from './store.js';
-
     export default {
       data: function() {
           return {
                 title: 'This is a plan',
                 items: Store.fetch(),
-                newItem: ''
+                newItem: '',
+                apiUrl: 'http://api.xiaohua.360.cn/Baoxiao/listData?callback=__callback&tag=&page=1'
             }
         },
         watch: {
@@ -60,16 +62,29 @@
                   this.items.push({
                       id: this.items.length,
                       createTime: this.getTime(),
-                      label: this.newItem,
+                      text: this.newItem,
                       isFinished: false
                   });
                   this.newItem = '';
                 }
             },
             delplan: function(item) {
-              console.log(item);
+
               this.items.$remove(item);
 
+            },
+            getData: function() {
+                this.$http.jsonp(this.apiUrl)
+                    .then((response) => {
+                        response.data.content_list.map((data) => {
+
+                            this.$set('newItem', data.text);
+                            this.addNew();
+                        });
+                    })
+                    .catch((response) => {
+                        console.log(response);
+                    });
             },
             getTime: function() {
                 var now = new Date(),

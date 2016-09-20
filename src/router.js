@@ -6,9 +6,10 @@ import Home from './components/Home.vue';
 import plan from './components/plan.vue';
 import Detials from './components/Detials.vue';
 import Editplan from './components/Editplan.vue';
-
+import vueResource from 'vue-resource';
+Vue.use(vueResource);
 Vue.use(VueRouter)
-const router = new VueRouter()
+const router = new VueRouter();
 
 router.map({
     '/': {
